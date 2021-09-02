@@ -1,6 +1,8 @@
 # About
 
-Password manager a simple way to stored password using encryptation algorithm AES.
+password-manager is a simple way to record and store your password accounts,
+this application not send any data to INTERNET, all data are stored in local,
+your passwords are encrypted using AES algorithm.
 
 ## Screenshots
 
@@ -20,7 +22,7 @@ sbt run
 
 ## LICENSE
 ```
-password-manager: Simple way to stored your password accounts
+password-manager: Simple way to record and store your password accounts
 Copyright (C) 2021 marcos-ro <marcosroropeza@protonmail.com>
 
 This program is free software: you can redistribute it and/or modify
