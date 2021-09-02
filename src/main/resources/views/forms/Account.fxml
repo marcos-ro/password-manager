@@ -82,7 +82,7 @@
                   <String fx:value="red-button" />
                </styleClass>
             </Button>
-            <Label id="error" fx:id="error" styleClass="component-font" text="Error" visible="false" />
+            <Label id="form_error" fx:id="error" styleClass="component-font" text="Error" visible="false" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="6.0" />
