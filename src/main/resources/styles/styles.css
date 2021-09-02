@@ -1,0 +1,196 @@
+/**
+ * Copyright(C) 2021 marcos-ro <marcosroropeza@protonmail.com>
+ *
+ * Distributed under terms of GPL license
+ **/
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import "variables.css";
+
+.table-view {
+    -fx-border-color: -fx-black-color;
+    -fx-background-radius: 0;
+    -fx-radius: 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: -fx-black-color;
+    -fx-border-color: -fx-black-color;
+    -fx-background-radius: 0;
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 400;
+    -fx-font-size: 15.5px;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-cell {
+    -fx-alignment: center;
+    -fx-font-size: 16.4px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: -fx-alt-blue-color-hover;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -fx-alt-blue-color; 
+    -fx-text-fill: white;
+}
+
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.flat-border {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}  
+
+.component-font {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 400;
+    -fx-font-size: 14px;
+}
+
+.button-font {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.big-button {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-font-size: 15px;
+}
+
+.green-button {
+    -fx-background-color: -fx-green-color;
+}
+
+.green-button:hover {
+    -fx-background-color: -fx-green-hover-color;
+}
+
+.red-button {
+    -fx-background-color: -fx-red-color;
+}
+
+.red-button:hover {
+    -fx-background-color: -fx-red-hover-color;
+}
+
+.form-field {
+    -mfx-line-color: -fx-blue-color-hover;
+    -mfx-unfocused-line-color: -fx-black-color;
+}
+
+#title {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-font-size: 25px;
+    -fx-text-fill: white;
+}
+
+#home-page-banner {
+    -fx-background-color: -fx-primary-color;
+}
+
+#search-field {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 400;
+    -fx-font-size: 15px;
+    -fx-text-box-border: transparent;
+    -fx-focus-color: -fx-search-bg-border;
+    -fx-accent: -fx-accent-color;
+    -fx-text-fill: -fx-text-fill-color;
+} 
+
+#search-field:focused {
+    -fx-text-box-border: transparent;
+    -fx-focus-color: -fx-search-bg-border;
+}
+
+#search-button {
+    -fx-background-color: -fx-search-bg-button;
+}
+
+#search-button:hover, #search-button:selected {
+    -fx-background-color: -fx-search-bg-button-hover;
+}
+
+#search-button .context-menu {
+    -fx-background-color: -fx-search-bg-menu-button;
+}
+
+#search-button .context-menu .menu-item:hover,
+#search-button .context-menu .menu-item:non-focused {
+    -fx-background-color: -fx-search-bg-menu-button-hover;
+}
+
+#search-button .context-menu .menu-item .label {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 400;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+
+#latteral-bar {
+    -fx-background-color: -fx-black-color;
+}
+
+#latteral-bar .button {
+    -fx-background-color: -fx-black-color;
+    -fx-text-fill: white;
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+
+#latteral-bar .button:hover {
+    -fx-background-color: -fx-black-hover-color;
+}
+
+#header {
+    -fx-background-color: -fx-black-color;
+}
+
+#header .label {
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+}
+
+#terminal {
+    -fx-border-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+#terminal:disabled {
+    -fx-background-insets: 0;
+    -fx-opacity: 1.0;
+    -fx-background-color: transparent, black, transparent, black;
+}
+
+#terminal .content {
+    -fx-background-radius: 0;
+    -fx-background-color: black;
+}
+
+#error {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.passwordmanager.controllers.pages.CryptoController">
+   <children>
+      <HBox prefHeight="38.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onGenerateKeyPairAction" prefHeight="38.0" prefWidth="550.0" HBox.hgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="flat-border" />
+                  <String fx:value="big-button" />
+                  <String fx:value="green-button" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="KEY" size="20" />
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onLoadKeyPairAction" prefHeight="38.0" prefWidth="550.0" HBox.hgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="flat-border" />
+                  <String fx:value="big-button" />
+                  <String fx:value="red-button" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="20" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <VBox id="home-page-banner" alignment="CENTER" prefHeight="397.0" prefWidth="1100.0">
+         <children>
+            <ImageView fitHeight="250.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/lib/logo.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="53.0" prefWidth="1100.0">
+               <children>
+                  <Label id="title" text="Crypto" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox id="header" prefHeight="40.0" prefWidth="1100.0">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TERMINAL" size="24">
+                     <HBox.margin>
+                        <Insets top="3.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <padding>
+                  <Insets left="8.0" top="5.0" />
+               </padding>
+            </HBox>
+            <TextArea id="terminal" fx:id="terminal" disable="true" editable="false" prefHeight="200.0" prefWidth="1100.0" styleClass="component-font" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

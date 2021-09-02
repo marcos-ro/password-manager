@@ -1,0 +1,26 @@
+/**
+ * Copyright(C) 2021 marcos-ro <marcosroropeza@protonmail.com>
+ *
+ * Distributed under terms of GPL license
+ **/ 
+
+* {
+    -fx-primary-color: #40739e;
+    -fx-text-fill-color: #2f3640;
+    -fx-black-color: #2f3640;
+    -fx-black-hover-color: #353b48;
+    -fx-accent-color: #40739e;
+    -fx-alt-blue-color: #40739e;
+    -fx-alt-blue-color-hover: #487eb0;
+    -fx-green-color: #44bd32;
+    -fx-green-hover-color: #4cd137;
+    -fx-red-color: #c23616;
+    -fx-red-hover-color: #e84118;
+    -fx-blue-color: #0097e6;
+    -fx-blue-color-hover: #00a8ff;
+    -fx-search-bg-border: #0097e6;
+    -fx-search-bg-button: #0097e6;
+    -fx-search-bg-button-hover: #00a8ff;
+    -fx-search-bg-menu-button: #0097e6;
+    -fx-search-bg-menu-button-hover: #00a8ff;
+}
