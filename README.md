@@ -1,7 +1,7 @@
 # About
 
 password-manager is a simple way to record and store your password accounts,
-this application not send any data to INTERNET, all data are stored in local,
+this application not send any data to internet, all data are stored in local,
 your passwords are encrypted using AES algorithm.
 
 ## Screenshots
