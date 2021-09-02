@@ -194,3 +194,10 @@
     -fx-text-fill: white;
     -fx-font-size: 15px;
 }
+
+#form_error {
+    -fx-font-family: 'Raleway';
+    -fx-font-weight: 700;
+    -fx-text-fill: red;
+    -fx-font-size: 15px;
+}
