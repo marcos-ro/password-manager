@@ -87,7 +87,7 @@
             <VBox alignment="CENTER" prefHeight="53.0" prefWidth="1100.0">
                <children>
                   <Label id="title" text="Accounts" />
-                  <Label id="error" fx:id="error" styleClass="component-font" text="Label" visible="false" />
+                  <Label id="error" fx:id="error" text="Label" visible="false" />
                </children>
             </VBox>
          </children>
