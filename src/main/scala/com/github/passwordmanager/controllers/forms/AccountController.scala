@@ -54,7 +54,7 @@ class AccountController(
   private var accountOpt: Option[Account] =
     None // Current account if your operation is put this value is const None
 
-  /** Make custom font with task
+  /** Make custom form from task
     */
   override def make(task: Form.Task): Unit =
     task match {
