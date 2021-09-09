@@ -115,7 +115,7 @@ private object AccountNitrite {
         if (isAccountField(field)) {
           val collection = database.getCollection("accounts")
           val accounts = collection
-            .find(Filters.eq(toAccountField(field), value))
+            .find(Filters.regex(toAccountField(field), value))
             .toList
             .asScala
             .map(Account.read)
