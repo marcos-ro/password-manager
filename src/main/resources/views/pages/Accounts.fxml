@@ -21,7 +21,7 @@
    <children>
       <HBox prefHeight="38.0" prefWidth="1100.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onAppendAction" prefHeight="41.0" prefWidth="79.0">
+            <Button mnemonicParsing="false" onAction="#onAppendAction" prefHeight="41.0" prefWidth="90.0">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16" />
                </graphic>
@@ -29,8 +29,11 @@
                   <String fx:value="flat-border" />
                   <String fx:value="green-button" />
                </styleClass>
+               <tooltip>
+                  <Tooltip text="Append" />
+               </tooltip>
             </Button>
-            <MenuButton id="search-button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="79.0" styleClass="flat-border" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+            <MenuButton id="search-button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" styleClass="flat-border" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="16" textAlignment="CENTER" />
                </graphic>
@@ -43,11 +46,14 @@
                   <RadioMenuItem mnemonicParsing="false" text="Project" toggleGroup="$searchByField" />
                   <RadioMenuItem mnemonicParsing="false" styleClass="component-font" text="Platform" toggleGroup="$searchByField" />
                </items>
+               <tooltip>
+                  <Tooltip text="Search by" />
+               </tooltip>
             </MenuButton>
-            <TextField id="search-field" fx:id="searchField" onKeyPressed="#onSearchAction" prefHeight="38.0" prefWidth="668.0" promptText="Search" styleClass="flat-border" HBox.hgrow="ALWAYS" />
+            <TextField id="search-field" fx:id="searchField" onKeyPressed="#onSearchAction" prefHeight="38.0" prefWidth="800.0" promptText="Search" styleClass="flat-border" HBox.hgrow="ALWAYS" />
             <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onEditAction" prefHeight="41.0" prefWidth="79.0">
+                  <Button mnemonicParsing="false" onAction="#onEditAction" prefHeight="41.0" prefWidth="90.0">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16" />
                      </graphic>
@@ -55,8 +61,11 @@
                         <String fx:value="flat-border" />
                         <String fx:value="green-button" />
                      </styleClass>
+                     <tooltip>
+                        <Tooltip text="Update" />
+                     </tooltip>
                   </Button>
-                  <Button layoutX="164.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteAction" prefHeight="41.0" prefWidth="79.0">
+                  <Button layoutX="164.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteAction" prefHeight="41.0" prefWidth="90.0">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MINUS" size="16" />
                      </graphic>
