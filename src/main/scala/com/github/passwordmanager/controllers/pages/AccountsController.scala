@@ -87,16 +87,6 @@ class AccountsController(
     }
   }
 
-  /** Show report form
-   */
-  def onReportAction: Unit = {
-    val account = accountsTable.getSelectionModel().getSelectedItem()
-    if (account != null) {
-      val task = Form.Report(account)
-      showFormAndWait(task)
-    }
-  }
-
   /** A method to show user errors
     */
   private def setError(message: String = "", isError: Boolean = true): Unit = {
