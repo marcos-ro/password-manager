@@ -86,13 +86,6 @@ class AccountController(
           action.setOnAction(_ => delete(remove))
         }
 
-      case Form.Report(account: Account) =>
-        Platform.runLater { () =>
-          setAccount(account)
-          disableFields
-          action.setVisible(false)
-        }
-
       case _ => {
         setError("The task to build not exists...")
         action.setVisible(false)
