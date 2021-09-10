@@ -28,11 +28,6 @@ object Form {
     */
   case class Delete[T](remove: () => Unit, t: T) extends Task
 
-  /** A class represent a report task to build form
-    * @param t This is a value to report
-    */
-  case class Report[T](t: T) extends Task
-
   /** A show and wait form
     * @param path Form's path view
     * @param parent Form's window parent
