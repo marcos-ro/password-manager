@@ -258,7 +258,8 @@ class AccountController(
 
   /** Update your account in database
     */
-  private def update: Unit =
+  private def update: Unit = {
+    updateAccountOpt
     accountOptValidation { account =>
       // Return your account with account's encrypted password (monad)
       val crypto = CryptoServices.point(account) >>= { cryptoAccount =>
@@ -279,10 +280,8 @@ class AccountController(
 
       // Handle execution result
       execution match {
-        case Right(_) => {
-          updateAccountOpt
+        case Right(_) =>
           setError(isError = false)
-        }
 
         case Left(e: Crypto.CryptoError) =>
           setError(e.getMessage)
@@ -294,6 +293,7 @@ class AccountController(
           setError("Unknow error...")
       }
     }
+  }
 
   /** Warning: delete account in database
     */
