@@ -18,7 +18,7 @@ lazy val javaFXModules =
 lazy val root  = (project in file("."))
   .settings(
     scalaVersion        := "2.13.5",
-    organization        := "com.github.passwordmanager",
+    organization        := "com.github.marcosro.passwordmanager",
     name                := "Password Manager",
     version             := "3.0.0",
     scalacOptions       ++= Seq("-Ymacro-annotations", "-deprecation"),
