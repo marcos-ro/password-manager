@@ -17,17 +17,17 @@ lazy val javaFXModules =
 
 lazy val root  = (project in file("."))
   .settings(
-    scalaVersion        := "2.13.5",
+    scalaVersion        := "2.13.6",
     organization        := "com.github.marcosro.passwordmanager",
     name                := "Password Manager",
-    version             := "3.0.0",
+    version             := "1.1.1",
     scalacOptions       ++= Seq("-Ymacro-annotations", "-deprecation"),
     libraryDependencies ++= javaFXModules.map {m =>
-      "org.openjfx" % s"javafx-$m" % "15.0.1" classifier osName
+      "org.openjfx" % s"javafx-$m" % "16" classifier osName
     },
     libraryDependencies ++= Seq(
     // scalafx dependencies
-    "org.scalafx" %% "scalafx" % "15.0.1-R21",
+    "org.scalafx" %% "scalafx" % "16.0.0-R25",
     "org.scalafx" %% "scalafxml-core-sfx8" % "0.5",
 
     // flat desing depdencies
