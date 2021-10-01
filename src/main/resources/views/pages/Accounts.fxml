@@ -77,7 +77,7 @@
                         <Tooltip text="Delete" />
                      </tooltip>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onDownloadAction" prefHeight="41.0" prefWidth="90.0" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#onExportToCSVAction" prefHeight="41.0" prefWidth="90.0" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="green-button" />
                         <String fx:value="flat-border" />
