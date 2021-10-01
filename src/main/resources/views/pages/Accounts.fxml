@@ -77,6 +77,15 @@
                         <Tooltip text="Delete" />
                      </tooltip>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#onDownloadAction" prefHeight="41.0" prefWidth="90.0" HBox.hgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="green-button" />
+                        <String fx:value="flat-border" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD" selectionEnd="0" selectionStart="0" size="16" />
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
          </children>

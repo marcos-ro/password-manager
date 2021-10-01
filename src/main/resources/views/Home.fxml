@@ -32,7 +32,7 @@
             <Insets bottom="5.0" />
          </padding>
       </VBox>
-      <AnchorPane fx:id="accountsPage" layoutX="50.0" prefHeight="700.0" prefWidth="1102.0">
+      <AnchorPane fx:id="accountsPage" layoutX="50.0" prefHeight="700.0" prefWidth="1067.0">
          <children>
             <fx:include source="pages/Accounts.fxml" />
          </children>
