@@ -90,6 +90,25 @@ private object AES {
       case NonFatal(e) => Left(new Crypto.CryptoError(e.getMessage()))
     }
 
+  /** A password encrypter
+    * @param key The public key generate and writed in <file>.jkey
+    * @param password The plain passwords
+    * @return Either[Crypto.CryptoError, List[String]] when String is a encrypted password and encoded in base64
+    */
+  def encryptMany(
+      key: PublicKey,
+      passwords: List[String]
+  ): Either[Crypto.CryptoError, List[String]] =
+    try {
+      val batch =
+        passwords.map(password => processingEncryptBatch(key, password))
+      val encryptedPasswords = batch.map(_._1)
+      val errorCount = batch.map(_._2).sum
+      batchSuccessOrError(errorCount, encryptedPasswords)
+    } catch {
+      case NonFatal(e) => Left(new Crypto.CryptoError(e.getMessage()))
+    }
+
   /**  A password decrypter
     * @param key The private key generate and writed in <file>.jkey
     * @param password The encrypted password and encoded in base64
@@ -108,4 +127,67 @@ private object AES {
     } catch {
       case NonFatal(e) => Left(new Crypto.CryptoError(e.getMessage()))
     }
+
+  /**  A password decrypter
+    * @param key The private key generate and writed in <file>.jkey
+    * @param passwords The encrypted passwords and encoded in base64
+    * @return Either[Crypto.CryptoError, String] when String is a plain password
+    */
+  def decryptMany(
+      key: PrivateKey,
+      passwords: List[String]
+  ): Either[Crypto.CryptoError, List[String]] =
+    try {
+      val batch =
+        passwords.map(password => processingDecryptBatch(key, password))
+      val decryptedPasswords = batch.map(_._1)
+      val errorCount = batch.map(_._2).sum
+      batchSuccessOrError(errorCount, decryptedPasswords)
+    } catch {
+      case NonFatal(e) => Left(new Crypto.CryptoError(e.getMessage()))
+    }
+
+  /** Processing plain passwords and transform to encrypted password
+    * @param key The public key generate and writed in <file>.jkey
+    * @param password The plain passwords
+    * @return (String, Int) when String is a encrypted password and Int is error code (1 is error, 0 isn't error)
+    */
+  private def processingEncryptBatch(
+      key: PublicKey,
+      password: String
+  ): (String, Int) =
+    encrypt(key, password) match {
+      case Right(encryptedPassword) => (encryptedPassword, 0)
+      case Left(_)                  => ("", 1)
+    }
+
+  /** Processing encrypted passwords and transform to plain passwords
+    * @param key The private key generate and write in <file>.jkey
+    * @param password The encrypted password
+    * @return (String, Int) when String is a encrypted password and Int is error code (1 is error, 0 isn't error)
+    */
+  private def processingDecryptBatch(
+      key: PrivateKey,
+      password: String
+  ): (String, Int) =
+    decrypt(key, password) match {
+      case Right(decryptedPassword) => (decryptedPassword, 0)
+      case Left(_)                  => ("", 1)
+    }
+
+  /** Processing a batch result by error count
+    * @param errorCount The error count, this errors ocurred in batch process
+    * @param batch The batch result
+    * @return Either[Crypto.CryptoError, List[String]] when List[String] is a result
+    */
+  private def batchSuccessOrError(
+      errorCount: Int,
+      batch: List[String]
+  ): Either[Crypto.CryptoError, List[String]] =
+    if (errorCount > 0)
+      Left(
+        new Crypto.CryptoError("Many error in your encryptation batch process")
+      )
+    else
+      Right(batch)
 }

@@ -10,7 +10,10 @@ import scalafxml.core.macros.sfxml
 import com.github.marcosro.passwordmanager.models.{Account, User}
 import com.github.marcosro.passwordmanager.models.storage.Storage
 import com.github.marcosro.passwordmanager.models.crypto.Crypto
-import com.github.marcosro.passwordmanager.services.{CryptoServices, AccountServices}
+import com.github.marcosro.passwordmanager.services.{
+  CryptoServices,
+  AccountServices
+}
 
 /** A class represent a account controller
   *

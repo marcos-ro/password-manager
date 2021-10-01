@@ -87,7 +87,7 @@ class CryptoController(
   /** Show save dialog for save key pairs
     * @return Either[Crypto.CryptoError, String] when String is abosulte path to key pairs
     */
-  private def saveDialog: Either[Crypto.CryptoError, String] = {
+  private def saveDialog: Either[Crypto.CryptoError, String] =
     try {
       val file = fileChooser.showSaveDialog(stage)
       if (file != null)
@@ -97,7 +97,6 @@ class CryptoController(
     } catch {
       case NonFatal(e) => Left(new Crypto.CryptoError(e.getMessage()))
     }
-  }
 
   /** Show a open dialog for load key pairs
     * @return Either[Crypto.CryptoError, String] when String is a abosule path to key pairs

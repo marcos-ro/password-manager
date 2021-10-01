@@ -57,4 +57,12 @@ object AccountServices {
     */
   def findByField(field: Find.Field, value: String): Program[List[Account]] =
     Execute(FindAccountByField(field, value))
+
+  /* Gets export to csv programs to export your password to another systems
+   * @param path Path to store user's accounts
+   * @param accounts Accounts to store
+   * @return Gets export to csv program
+   */
+  def exportToCSV(path: String, accounts: List[Account]): Program[Unit] =
+    Execute(ExportAccountsToCSV(path, accounts))
 }

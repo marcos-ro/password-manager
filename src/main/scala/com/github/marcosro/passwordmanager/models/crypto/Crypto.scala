@@ -73,6 +73,21 @@ package commands {
     */
   case class Encrypt(key: PublicKey, password: String) extends Command[String]
 
+  /** A class represent a encrypted passwords
+    * Specify the `key` and `passwords` when create a new encrypted passwords
+    * then access the fields like:
+    * {{{
+    * val key = ... // load key
+    * val encrypt = Encrypt(key, List("random"))
+    * encrypt.passwords // plain passwords
+    * }}}
+    * @constructor Create a encrypted password with `key` and `passwords`
+    * @param key The secret key (public key in this app) sorry hackers 😔 I'm begginer in this a crypto world
+    * @param password The plain passwords
+    */
+  case class EncryptMany(key: PublicKey, password: List[String])
+      extends Command[List[String]]
+
   /** A class represent a password decrypted
     * Specify the `key` and `password` when create a new password decrypted
     * then access the fields like:
@@ -85,6 +100,20 @@ package commands {
     * @param passwod The encrypted password
     */
   case class Decrypt(key: PrivateKey, password: String) extends Command[String]
+
+  /** A class represent a passwords decrypted
+    * Specify the `key` and `passwords` when create a new password decrypted
+    * then access the fields like:
+    * {{{
+    * val key = ... // load key
+    * val decrypt = Decrypt(key, List("encrypted-password"))
+    * }}}
+    * @constructor Create a new decrypted passwords wiht `passwords`
+    * @param key The secret key (private key in this app) sorry hackers 😔 I'm begginer in this crypto world
+    * @param passwod The encrypted passwords
+    */
+  case class DecryptMany(key: PrivateKey, password: List[String])
+      extends Command[List[String]]
 }
 
 package programs {

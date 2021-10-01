@@ -32,8 +32,12 @@ class DefaultCrypto extends Crypto {
         AES.loadKeyPairs(path).map(_.getPrivate())
       case Execute(Encrypt(key, password)) =>
         AES.encrypt(key, password)
+      case Execute(EncryptMany(key, passwords)) =>
+        AES.encryptMany(key, passwords)
       case Execute(Decrypt(key, password)) =>
         AES.decrypt(key, password)
+      case Execute(DecryptMany(key, passwords)) =>
+        AES.decryptMany(key, passwords)
       case Execute(RandomPassword(size)) =>
         Right(AES.randomPassword(size))
       case Return(value) =>

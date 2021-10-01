@@ -114,6 +114,18 @@ package commands {
     */
   case class FindAccountByField(field: Find.Field, value: String)
       extends Command[List[Account]]
+
+  /** A class represent a export accounts to csv file command
+    *
+    * Specify `path` and `accounts` when create a new export account to csv command
+    * {{{
+    * val exportToCSV = ExportAccountsToCSV("/path/to/csv", accounts)
+    * exportToCSV.path
+    * exportToCSV.accounts
+    * }}}
+    */
+  case class ExportAccountsToCSV(path: String, accounts: List[Account])
+      extends Command[Unit]
 }
 
 package programs {

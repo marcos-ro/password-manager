@@ -62,6 +62,8 @@ class StorageNitrite extends Storage {
         AccountNitrite.findById(uuid)
       case Execute(FindAccountByField(field, value)) =>
         AccountNitrite.findByField(field, value)
+      case Execute(ExportAccountsToCSV(path, accounts)) =>
+        AccountNitrite.exportToCSV(path, accounts)
       case Return(value) =>
         Right(value)
       case _ =>

@@ -5,6 +5,7 @@ import scala.util.control.NonFatal
 import org.dizitart.no2.objects.ObjectRepository
 import org.dizitart.no2.objects.filters.ObjectFilters
 import org.dizitart.no2.filters.Filters
+import com.github.tototoshi.csv.CSVWriter
 import com.github.marcosro.passwordmanager.models.Account
 import com.github.marcosro.passwordmanager.models.storage.Storage
 import com.github.marcosro.passwordmanager.models.storage.commands.Find
@@ -133,6 +134,32 @@ private object AccountNitrite {
       }
     }
 
+  /** A export your accounts to csv file
+    * @param path The path to store your accounts
+    * @param accounts The accounts to store
+    * @return Either[Storage.StorageError, Unit] when Unit represent IO operation
+    */
+  def exportToCSV(
+      path: String,
+      accounts: List[Account]
+  ): Either[Storage.StorageError, Unit] = {
+    var writer: CSVWriter = null
+    try {
+      val headers =
+        List("role", "platform", "project", "category", "user", "password")
+      val rows = toAccountsToRows(accounts)
+      writer = CSVWriter.open(path)
+      Right(writer.writeRow(headers)).flatMap { _ =>
+        Right(writer.writeAll(rows))
+      }
+    } catch {
+      case NonFatal(e) => Left(new Storage.StorageError(e.getMessage()))
+    } finally {
+      if (writer != null)
+        writer.close()
+    }
+  }
+
   /** Verify if field is a account's field
     * @param field The unknow field
     * @return If field is account's field
@@ -159,5 +186,23 @@ private object AccountNitrite {
       case Find.AccountByCategory => "category"
       case Find.AccountByProject  => "project"
       case Find.AccountByPlatform => "platform"
+    }
+
+  /** Return accounts list item to row format
+    * ==Example==
+    * {{{
+    * val rows = toAccountsToRows(accounts)
+    * rows // List(List("item a", "item n"))
+    * }}}
+    */
+  private def toAccountsToRows(accounts: List[Account]): List[List[String]] =
+    accounts.map { account =>
+      val role = account.getRole
+      val platform = account.getPlatform
+      val project = account.getProject
+      val category = account.getCategory
+      val user = account.getUser.getName
+      val password = account.getUser.getPassword
+      List(role, platform, project, category, user, password)
     }
 }

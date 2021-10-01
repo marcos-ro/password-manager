@@ -87,6 +87,22 @@ class AccountsController(
     }
   }
 
+  /** Export a result of query to csv
+   */
+  def onExportToCSVAction: Unit = {
+    val accountsCopy = accounts.toArray().toList.map(_.asInstanceOf[Account].copy)
+    if(accountsCopy.nonEmpty)
+      saveDialog match {
+        case Right(path) => {
+          setError(isError = false)
+          exportToCSV(path, accountsCopy)
+        }
+
+        case Left(e: Storage.StorageError) =>
+          setError(e.getMessage)
+      }
+  }
+
   /** A method to show user errors
     */
   private def setError(message: String = "", isError: Boolean = true): Unit = {
@@ -139,6 +155,45 @@ class AccountsController(
       }
 
       case Left(e) => setError(e.getMessage)
+    }
+  }
+ 
+  /** Export accounts to CSV file
+   * @param path The path to store your accounts
+   * @param accountsToExport The account to export
+   */
+  private def exportToCSV(path: String, accountsToExport: List[Account]): Unit = {
+    val crypto = CryptoServices.point(accountsToExport) >>= {rows =>
+      val passwords = rows.map(_.getUser.getPassword)
+      CryptoServices.decryptMany(passwords) >>= {decryptedPasswords =>
+        accountsToExport.zip(decryptedPasswords).foreach {
+          case (account, decryptedPassword) => {
+            account.getUser.setPassword(decryptedPassword)
+          }
+        }
+
+        CryptoServices.point(accountsToExport)
+      }
+    }
+
+    val execution = CryptoServices.interpreter.run(crypto).flatMap {rows =>
+      val program = AccountServices.exportToCSV(path, rows)
+      AccountServices.interpreter.run(program)
+    } 
+
+    // Handle execution result
+    execution match {
+      case Right(_) =>
+        setError(isError = false)
+
+      case Left(e: Crypto.CryptoError) =>
+        setError(e.getMessage)
+
+      case Left(e: Storage.StorageError) =>
+        setError(e.getMessage)
+
+      case Left(_) =>
+        setError("Unknow error...")
     }
   }
 }
