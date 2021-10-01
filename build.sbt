@@ -44,6 +44,9 @@ lazy val root  = (project in file("."))
     // database dependencies
     "org.dizitart" % "nitrite" % "3.4.3",
 
+    // write and read csv files dependencies
+    "com.github.tototoshi" %% "scala-csv" % "1.3.8",
+
     // unit testing dependencies
     "org.scalactic" %% "scalactic" % "3.2.9",
     "org.scalatest" %% "scalatest" % "3.2.9" % "test"
