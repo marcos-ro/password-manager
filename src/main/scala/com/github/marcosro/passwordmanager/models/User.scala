@@ -88,4 +88,13 @@ class User(private val name: String, private val password: String) {
     */
   def getPasswordProperty: StringProperty =
     passwordProperty
+
+  /** Gets a user's copy
+   * @return Gets a `user` copy
+   */
+  def copy: User = {
+      val name = getName
+      val password = getPassword
+      new User(name, password)
+  }
 }

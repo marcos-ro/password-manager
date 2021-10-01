@@ -173,4 +173,17 @@ class Account(
     */
   def getCategory: String =
     categoryProperty.get()
+
+  /** Gets a account's copy
+   * @return Gets a `account` copy
+   */
+  def copy: Account = {
+    val uuid = getUUID
+    val user = getUser.copy
+    val role = getRole
+    val platform = getPlatform
+    val project = getProject
+    val category = getCategory
+    new Account(uuid, user, role, platform, project, category)
+  }
 }
