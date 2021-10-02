@@ -1,4 +1,4 @@
-import com.github.passwordmanager.marcosro.models.storage
+import com.github.marcosro.passwordmanager.models.storage
 
 /** Manages storage programs for nitrite database
   */
