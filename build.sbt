@@ -51,7 +51,7 @@ lazy val root  = (project in file("."))
     "org.scalactic" %% "scalactic" % "3.2.9",
     "org.scalatest" %% "scalatest" % "3.2.9" % "test"
   ),
-  Compile / doc / scalacOptions    ++= Seq("-skip-packages", "com.github.marcosro.passwordmanager.controllers:com.github.marcosro.passwordmanager.app"),
+  Compile / doc / scalacOptions    ++= Seq("-skip-packages", "com.github.marcosro.passwordmanager.controllers:com.github.marcosro.passwordmanager.components:com.github.marcosro.passwordmanager.app"),
   assembly / assemblyJarName       := "password_manager.jar",
   assembly / assemblyMergeStrategy := {
     case PathList("META-INF", xs @ _*) => MergeStrategy.discard

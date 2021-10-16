@@ -63,7 +63,9 @@ object CryptoServices {
     Execute(LoadPublicKey(path)) >>= (key => Execute(Encrypt(key, password)))
 
   def encryptMany(passwords: List[String]): Program[List[String]] =
-    Execute(LoadPublicKey(path)) >>= (key => Execute(EncryptMany(key, passwords)))
+    Execute(LoadPublicKey(path)) >>= (key =>
+      Execute(EncryptMany(key, passwords))
+    )
 
   /** Gets decryptation program for `password`
     * @param password The encrypted password to decrypt
@@ -73,5 +75,7 @@ object CryptoServices {
     Execute(LoadPrivateKey(path)) >>= (key => Execute(Decrypt(key, password)))
 
   def decryptMany(passwords: List[String]): Program[List[String]] =
-    Execute(LoadPrivateKey(path)) >>= (key => Execute(DecryptMany(key, passwords)))
+    Execute(LoadPrivateKey(path)) >>= (key =>
+      Execute(DecryptMany(key, passwords))
+    )
 }

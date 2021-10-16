@@ -175,8 +175,8 @@ class Account(
     categoryProperty.get()
 
   /** Gets a account's copy
-   * @return Gets a `account` copy
-   */
+    * @return Gets a `account` copy
+    */
   def copy: Account = {
     val uuid = getUUID
     val user = getUser.copy

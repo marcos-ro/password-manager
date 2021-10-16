@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox
 import javafx.scene.input.{KeyEvent, KeyCode}
 import javafx.scene.control.RadioMenuItem
 import javafx.collections.{FXCollections, ObservableList}
+import javafx.util.Callback
 import scalafx.stage.FileChooser
 import scalafx.scene.control.{Label, TextField, TableColumn, ToggleGroup}
 import scalafxml.core.macros.sfxml
@@ -16,8 +17,12 @@ import com.github.marcosro.passwordmanager.models.Account
 import com.github.marcosro.passwordmanager.models.storage.commands.Find
 import com.github.marcosro.passwordmanager.models.storage.Storage
 import com.github.marcosro.passwordmanager.models.crypto.Crypto
-import com.github.marcosro.passwordmanager.services.{CryptoServices, AccountServices}
+import com.github.marcosro.passwordmanager.services.{
+  CryptoServices,
+  AccountServices
+}
 import com.github.marcosro.passwordmanager.controllers.forms.Form
+import com.github.marcosro.passwordmanager.components.ActionButtonTableCell
 
 /** A class represent a accounts controller
   *
@@ -40,6 +45,7 @@ class AccountsController(
     @FXML private val roleColumn: TableColumn[Account, String],
     @FXML private val userColumn: TableColumn[Account, String],
     @FXML private val platformColumn: TableColumn[Account, String],
+    @FXML private val passwordColumn: TableColumn[Account, Account],
     @FXML private val error: Label
 ) {
   private val accounts =
@@ -47,10 +53,21 @@ class AccountsController(
       Account
     ]() // The accounts to display in accountsTable
 
+  private val cellFactory = new Callback[
+    javafx.scene.control.TableColumn[Account, Account],
+    javafx.scene.control.TableCell[Account, Account]
+  ]() {
+    override def call(
+        accountColumn: javafx.scene.control.TableColumn[Account, Account]
+    ): javafx.scene.control.TableCell[Account, Account] =
+      new ActionButtonTableCell("Copy", copyIntoClipboard)
+  }
+
   // Settings
   roleColumn.cellValueFactory = { _.value.getRoleProperty }
   userColumn.cellValueFactory = { _.value.getUser.getNameProperty }
   platformColumn.cellValueFactory = { _.value.getPlatformProperty }
+  passwordColumn.setCellFactory(cellFactory)
   accountsTable.setItems(accounts)
 
   /** Search accounts if the user pressed enter
@@ -95,10 +112,11 @@ class AccountsController(
   }
 
   /** Export a result of query to csv
-   */
+    */
   def onExportToCSVAction: Unit = {
-    val accountsCopy = accounts.toArray().toList.map(_.asInstanceOf[Account].copy)
-    if(accountsCopy.nonEmpty)
+    val accountsCopy =
+      accounts.toArray().toList.map(_.asInstanceOf[Account].copy)
+    if (accountsCopy.nonEmpty)
       saveDialog match {
         case Right(path) => {
           setError(isError = false)
@@ -132,8 +150,9 @@ class AccountsController(
     Form.showAndWait(window, path, title, task)
   }
 
-  /**
-   */
+  /** Display native file choooser and chooser a file
+    * @return FileChooser, the native file chooser to manipulate into files using GUI
+    */
   private def fileChooser: FileChooser =
     new FileChooser {
       title = "Path to CSV export"
@@ -142,13 +161,15 @@ class AccountsController(
       )
     }
 
-  /**
-   */
+  /** Stage of current window
+    * @return stage of current window
+    */
   private def stage: javafx.stage.Stage =
     root.getScene.getWindow.asInstanceOf[javafx.stage.Stage]
 
-  /**
-   */
+  /** Display save dialog using file chooser
+    * @return Either[Storage.StorageError, String] when StorageError is a IO error and String is a text file content
+    */
   private def saveDialog: Either[Storage.StorageError, String] =
     try {
       val file = fileChooser.showSaveDialog(stage)
@@ -193,15 +214,18 @@ class AccountsController(
       case Left(e) => setError(e.getMessage)
     }
   }
- 
+
   /** Export accounts to CSV file
-   * @param path The path to store your accounts
-   * @param accountsToExport The account to export
-   */
-  private def exportToCSV(path: String, accountsToExport: List[Account]): Unit = {
-    val crypto = CryptoServices.point(accountsToExport) >>= {rows =>
+    * @param path The path to store your accounts
+    * @param accountsToExport The account to export
+    */
+  private def exportToCSV(
+      path: String,
+      accountsToExport: List[Account]
+  ): Unit = {
+    val crypto = CryptoServices.point(accountsToExport) >>= { rows =>
       val passwords = rows.map(_.getUser.getPassword)
-      CryptoServices.decryptMany(passwords) >>= {decryptedPasswords =>
+      CryptoServices.decryptMany(passwords) >>= { decryptedPasswords =>
         accountsToExport.zip(decryptedPasswords).foreach {
           case (account, decryptedPassword) => {
             account.getUser.setPassword(decryptedPassword)
@@ -212,10 +236,10 @@ class AccountsController(
       }
     }
 
-    val execution = CryptoServices.interpreter.run(crypto).flatMap {rows =>
+    val execution = CryptoServices.interpreter.run(crypto).flatMap { rows =>
       val program = AccountServices.exportToCSV(path, rows)
       AccountServices.interpreter.run(program)
-    } 
+    }
 
     // Handle execution result
     execution match {
@@ -230,6 +254,28 @@ class AccountsController(
 
       case Left(_) =>
         setError("Unknow error...")
+    }
+  }
+
+  /** Copy decrypt password into clipboard
+    * @param account The account to copy password into clipboard
+    */
+  private def copyIntoClipboard(account: Account): Unit = {
+    val program = CryptoServices.point(account.getUser.getPassword) >>= {
+      encryptedPassword =>
+        CryptoServices.decrypt(encryptedPassword)
+    }
+
+    CryptoServices.interpreter.run(program) match {
+      case Right(password) => {
+        setError(isError = false)
+        val clipboard = java.awt.Toolkit.getDefaultToolkit.getSystemClipboard
+        val selection = new java.awt.datatransfer.StringSelection(password)
+        clipboard.setContents(selection, selection)
+      }
+
+      case Left(e) =>
+        setError(e.getMessage)
     }
   }
 }
