@@ -22,7 +22,6 @@ import com.github.marcosro.passwordmanager.services.{
   AccountServices
 }
 import com.github.marcosro.passwordmanager.controllers.forms.Form
-import com.github.marcosro.passwordmanager.components.ActionButtonTableCell
 
 /** A class represent a accounts controller
   *
@@ -45,7 +44,6 @@ class AccountsController(
     @FXML private val roleColumn: TableColumn[Account, String],
     @FXML private val userColumn: TableColumn[Account, String],
     @FXML private val platformColumn: TableColumn[Account, String],
-    @FXML private val passwordColumn: TableColumn[Account, Account],
     @FXML private val error: Label
 ) {
   private val accounts =
@@ -53,21 +51,10 @@ class AccountsController(
       Account
     ]() // The accounts to display in accountsTable
 
-  private val cellFactory = new Callback[
-    javafx.scene.control.TableColumn[Account, Account],
-    javafx.scene.control.TableCell[Account, Account]
-  ]() {
-    override def call(
-        accountColumn: javafx.scene.control.TableColumn[Account, Account]
-    ): javafx.scene.control.TableCell[Account, Account] =
-      new ActionButtonTableCell("Copy", copyIntoClipboard)
-  }
-
   // Settings
   roleColumn.cellValueFactory = { _.value.getRoleProperty }
   userColumn.cellValueFactory = { _.value.getUser.getNameProperty }
   platformColumn.cellValueFactory = { _.value.getPlatformProperty }
-  passwordColumn.setCellFactory(cellFactory)
   accountsTable.setItems(accounts)
 
   /** Search accounts if the user pressed enter
@@ -254,28 +241,6 @@ class AccountsController(
 
       case Left(_) =>
         setError("Unknow error...")
-    }
-  }
-
-  /** Copy decrypt password into clipboard
-    * @param account The account to copy password into clipboard
-    */
-  private def copyIntoClipboard(account: Account): Unit = {
-    val program = CryptoServices.point(account.getUser.getPassword) >>= {
-      encryptedPassword =>
-        CryptoServices.decrypt(encryptedPassword)
-    }
-
-    CryptoServices.interpreter.run(program) match {
-      case Right(password) => {
-        setError(isError = false)
-        val clipboard = java.awt.Toolkit.getDefaultToolkit.getSystemClipboard
-        val selection = new java.awt.datatransfer.StringSelection(password)
-        clipboard.setContents(selection, selection)
-      }
-
-      case Left(e) =>
-        setError(e.getMessage)
     }
   }
 }

@@ -112,7 +112,7 @@
 	          <Label text="" />
 	       </placeholder>
                <columns>
-                  <TableColumn fx:id="roleColumn" prefWidth="75.0" text="Role">
+                  <TableColumn fx:id="roleColumn" prefWidth="442.0" text="Role">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="USER_SECRET" />
                      </graphic></TableColumn>
@@ -124,11 +124,6 @@
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="SERVER" />
                      </graphic></TableColumn>
-                  <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="KEY" />
-                     </graphic>
-                  </TableColumn>
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

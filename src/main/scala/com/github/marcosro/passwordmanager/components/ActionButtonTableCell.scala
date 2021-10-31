@@ -15,7 +15,7 @@ class ActionButtonTableCell[T](
 ) extends TableCell[T, T] {
   private val button = new Button(label)
   button.setOnAction(_ => event(currentItem))
-  button.getStyleClass().addAll("green-button", "flat-border", "button-font")
+  button.getStyleClass().addAll("flat-border", "green-button")
 
   override def updateItem(t: T, empty: Boolean): Unit = {
     super.updateItem(t, empty)
